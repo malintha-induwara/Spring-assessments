@@ -14,6 +14,13 @@ public class User {
     @Wow
     private GoodGirl goodGirl;
 
+    public User() {
+        //cant use goodGirl here because it is not initialized yet
+        System.out.println(goodGirl);
+    }
+
+
+    //PostConstruct is used to execute a method after the bean is initialized
     @PostConstruct
     public void init(){
         //System.out.println(goodGirl);
