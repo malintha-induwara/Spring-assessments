@@ -9,10 +9,15 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class User {
-    @Autowired
+
     @Qualifier("Long hair")
-    @Wow
     private GoodGirl goodGirl;
+
+    @Autowired
+    @Wow
+    public User(GoodGirl goodGirl) {
+        this.goodGirl = goodGirl;
+    }
 
     public User() {
         //cant use goodGirl here because it is not initialized yet
