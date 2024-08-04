@@ -13,8 +13,7 @@ public class User {
     @Qualifier("Long hair")
     private GoodGirl goodGirl;
 
-    @Autowired
-    @Wow
+
     public User(GoodGirl goodGirl) {
         this.goodGirl = goodGirl;
     }
@@ -30,6 +29,13 @@ public class User {
     public void init(){
         //System.out.println(goodGirl);
         goodGirl.sayHello();
+    }
+
+
+    @Autowired
+    @Wow
+    public void setGoodGirl(GoodGirl goodGirl) {
+        this.goodGirl = goodGirl;
     }
 }
 
