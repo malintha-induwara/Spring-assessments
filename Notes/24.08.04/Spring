@@ -1,0 +1,68 @@
+###### Spring ######
+
+
+Spring is a framwork
+
+
+Spring is a colleciton of framework
+sprinboot is one of them it goal is to redice the configureation
+
+
+
+When using Java EE it need to overide methods, but spring doesnt required that
+
+
+*Alternative for Java EE
+*Learning Curve is short
+*No need some additional infra: as server or web containers
+*Both Desktop and web supoprt
+
+*Later inherit the spring FW charaters for Java EE
+* Java EE has liitaions should extend HttpServelt class
+
+
+
+				Jakartha EE
+			_____________|_____________
+		    |                          |
+		  Spring FW		       JAX-RS
+		  
+
+Spring core is the bare minimum requirement for run spring application
+
+
+There are two type of programming languaes (Decleartive and imperative ) programming languages
+
+Java is impertative programming language
+
+Spring called as magic framework
+
+Spring take a step to make java decleartive
+
+
+
+Been spec and beans are different
+
+Beans are similer to objects but it needed to have some qulifications for it to be a been, those qulifications called
+POJO
+
+POJO- Plain Old Java Objects
+
+JLS classes or library
+
+
+POJO give priority to POJOS
+
+POJOS 
+
+
+JLS -Java Language Specification
+
+
+
+If its a custom object or the class is inherited from JLS its a POJO
+
+if its inherited with SomeThiredParty class its not a POJO
+
+
+

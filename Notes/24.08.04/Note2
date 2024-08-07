@@ -1,0 +1,27 @@
+Inversion of control - Spring take over the control of the application
+
+Context types
+
+what the purpose of configration classSS context:  Source for bean defination
+
+If some baen depend on another bean in liht mode doesnt work, it only work in full mode
+
+
+IOC - Container, Bean Factory
+
+Fean Factory is old way to manage beans, now use application context
+
+Annotations are used to guide
+
+   
+   There are 3 main injection methods
+   
+   1)Field injection  ->Widly use in the field
+   2)Constructor injection  -> Reccomond one
+   3)Setter injection
+   
+   
+   4)Value injection
+   
+   
+ you never cant access depenacy injection inside a construcor the reason is dependacny injection is in later stage of bean lifecyle
