@@ -1,0 +1,23 @@
+1) @ComponentScan ->   Tell Go find objects that like to work with spring  
+   (basePackages = "lk.ijse.gdse.add") - if you give path like this it only scan this directory and its sub directory
+   
+   (baseClass = Hello.java) - only the mentioned class
+   
+   
+   
+   @Component -> Mark a class as its suitable for work with spring
+   
+   
+   @Bean -> if we doing to register a class that we dont have a source code we use bean annotaion
+   
+   @Retecteion -> this is used to tell  in which time the annotation should remove 
+   
+   @Autowired ->used for dependency injection, it used to tell spring to inject a bean of (that type)  inside application context
+   
+   
+   
+   @Qulifer->
+   @Primary->
+   
+
+   
