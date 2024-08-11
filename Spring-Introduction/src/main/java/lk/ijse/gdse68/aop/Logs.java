@@ -1,6 +1,7 @@
 package lk.ijse.gdse68.aop;
 
 
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -13,7 +14,7 @@ import lk.ijse.gdse68.aop.Transaction;
 @EnableAspectJAutoProxy
 public class Logs {
 
-    @Before("execution(public void startTransaction())")
+    @After("execution(public void startTransaction())")
     public void logForStartTransaction() {
         System.out.println("Log Transaction Started");
     }
