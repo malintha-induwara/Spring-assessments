@@ -5,10 +5,12 @@
    
    
    
-   @Component -> Mark a class as its suitable for work with spring
+   @Component -> Mark a class as its suitable for work with spring (a calss we created , we have the source code)
    
    
-   @Bean -> if we doing to register a class that we dont have a source code we use bean annotaion
+   @Bean -> if we going to register a class that we dont have a source code we use bean annotaion(objects that managed by spring framework)
+    these are singleton( we say scope is singleton) if we want we can change the scope
+  
    
    @Retecteion -> this is used to tell  in which time the annotation should remove 
    
@@ -19,5 +21,9 @@
    @Qulifer->
    @Primary->
    
+   @Scope -> Used to define the scope of a bean there are 4 types (Singleton,Prototype,Session,Request)  but we can only use Singleton and Prototype  , only in web application we can use session and Request
+   
+   @CompontentScan
+
 
    

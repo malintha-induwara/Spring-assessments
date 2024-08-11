@@ -1,0 +1,51 @@
+
+What are the scopes of spring beans?
+
+by default it has Singleton scope
+We can change the type of beans to Singlton,Prototype beans  ( there are also antother two types  Session and Request)
+
+
+Old spring verison have a beanfactory to create beans but never versions have a method called Application Context, but beanfactory is still used in Spring
+lifescycle because of backword compatability
+
+
+when using Prototype, spring manage the bean untill ready to use stage , after that it throw it away from the application context which mean its no longer a bean and its not manage by the 
+spring framework
+
+
+Config -> Source for bean difination
+
+bean ambiguity spring (when there are similer two bean in the application context, we use ambiguity to define it)
+
+AOP -Aspect orianted programming  (Programming paradime) - Java by deafult doesnt support
+
+For example if there is a Main function called Transaction and you want to log it loggin part is a apsect of transaction
+
+
+comparative and imparative proramming
+
+imparative mean you have to specifically tell to the programming lanuage what to do (JAVA)
+decleative mean you tell the program what you want
+
+
+
+@ComponentScan is used to mark beans eligible for application context
+
+
+
+				Spring Web
+	____________________________|______________________
+	|						   |
+	MVC						Web-flux (focus on reactive programming)
+							-reactive
+							-async
+
+a servlet is simply a class that can handel http requests
+
+
+Dispatcher Servlet
+
+
+
+
+
