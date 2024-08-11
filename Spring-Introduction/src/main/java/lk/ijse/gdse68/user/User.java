@@ -47,5 +47,10 @@ public class User {
     public void setGoodGirl(GoodGirl goodGirl) {
         this.goodGirl = goodGirl;
     }
+
+    @Autowired
+    public void myMethod(@Nullable String name){
+        System.out.println("Hello null");
+    }
 }
 
