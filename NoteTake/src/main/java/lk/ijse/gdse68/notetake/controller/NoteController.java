@@ -6,6 +6,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/note")
 public class NoteController {
@@ -19,6 +21,9 @@ public class NoteController {
         System.out.println(note);
         return ResponseEntity.ok("Note Created");
     }
+
+
+
 
 }
 
