@@ -4,6 +4,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RequestMapping("/api/v1/demo")
 @RestController
 public class DemoController {
@@ -54,6 +56,11 @@ public class DemoController {
     }
 
 
+    @PostMapping(value = "/mapparams",params = {"id","desc"})
+    public String handleMaps(@RequestParam("id") String id, @RequestParam("desc") String desc, @RequestParam Map<String, String> params) {
+        System.out.println(params);
+        return "ID : "+id+" Desc : "+desc+" Params : "+params;
+    }
 
 
 }
