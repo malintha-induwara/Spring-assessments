@@ -1,5 +1,7 @@
 package lk.ijse.gdse68.introductionspringweb.controller;
 
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/api/v1/demo")
@@ -36,6 +38,22 @@ public class DemoController {
     public String paramData(@RequestParam("name") String name,@RequestParam String quantity) {
         return "Name : "+name+" Quantity : "+quantity;
     }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String saveJSON(){
+        return "JSON saved";
+    }
+
+
+    @PostMapping("/dynamic/{value:\\d{2}}")
+    public ResponseEntity<String> returnDynamicData(@PathVariable ("value") int incomingValue){
+        if(incomingValue %2 == 0) {
+            return ResponseEntity.ok("Even Number");
+        }
+        return ResponseEntity.ok("Odd Number");
+    }
+
+
 
 
 }
