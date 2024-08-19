@@ -1,9 +1,8 @@
 package lk.ijse.gdse68.notetake.dto;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
-public class Note implements Serializable {
+public class NoteDTO implements Serializable {
     private String noteId;
     private String noteTitle;
     private String noteDescription;
@@ -11,10 +10,10 @@ public class Note implements Serializable {
     private String createDate;
 
 
-    public Note() {
+    public NoteDTO() {
     }
 
-    public Note(String noteId, String noteTitle, String noteDescription, String priorityLevel, String createDate) {
+    public NoteDTO(String noteId, String noteTitle, String noteDescription, String priorityLevel, String createDate) {
         this.noteId = noteId;
         this.noteTitle = noteTitle;
         this.noteDescription = noteDescription;
