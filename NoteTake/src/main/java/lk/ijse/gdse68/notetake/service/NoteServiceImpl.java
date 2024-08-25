@@ -16,8 +16,8 @@ public final class NoteServiceImpl implements NoteService {
         saveNoteTmp.add(new NoteDTO("NOTE 4f8a0a68-3ccc-41b2-9de6-4e9bcdba65bb","Priciples of CS","CS Desc","P2","20240825"));
         saveNoteTmp.add(new NoteDTO("NOTE 4f8a069-2ebc-41b2-9de6-4e9bcdba65bb","Priciples of NW","NW Desc","P1","20240825"));
         saveNoteTmp.add(new NoteDTO("NOTE 4f8a0a70-2ebc-41b2-9de6-4e9ddbbba65b","Priciples of UI","UI Desc","P2","20240825"));
-        System.out.println(saveNoteTmp);
     }
+
     @Override
     public String saveNote(NoteDTO noteDTO) {
         noteDTO.setNoteId(AppUtil.createNoteId());
