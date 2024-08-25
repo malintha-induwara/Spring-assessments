@@ -25,8 +25,8 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public String saveNote(NoteDTO noteDTO) {
-//        noteDTO.setNoteId(AppUtil.createNoteId());
-//        noteDao.save(mapping.convertToNoteEntity(noteDTO));
+        noteDTO.setNoteId(AppUtil.createNoteId());
+        noteDao.save(mapping.convertToNoteEntity(noteDTO));
         return "Saved successfully in Service layer";
     }
 

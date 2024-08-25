@@ -40,13 +40,13 @@ public class WebAppRootConfig {
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
-        HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
-        hibernateJpaVendorAdapter.setGenerateDdl(true);
-        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-        entityManagerFactoryBean.setJpaVendorAdapter(hibernateJpaVendorAdapter);
-        entityManagerFactoryBean.setPackagesToScan("lk.ijse.gdse68.notetake");
-        entityManagerFactoryBean.setDataSource(dataSource());
-        return entityManagerFactoryBean;
+        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        vendorAdapter.setGenerateDdl(true);
+        LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
+        factoryBean.setJpaVendorAdapter(vendorAdapter);
+        factoryBean.setPackagesToScan("lk.ijse.gdse68.notetake.entity");
+        factoryBean.setDataSource(dataSource());
+        return factoryBean;
     }
 
     @Bean
