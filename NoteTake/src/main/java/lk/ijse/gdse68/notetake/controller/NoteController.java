@@ -51,7 +51,10 @@ public class NoteController {
 
     @DeleteMapping(value = "/{noteId}")
     public void deleteNote(@PathVariable ("noteId") String noteId){
-        System.out.println(noteId+" Deleted");
+        boolean deleteNote = noteService.deleteNote(noteId);
+        if (deleteNote) {
+            System.out.println("Note Deleted");
+        }
     }
 
 }

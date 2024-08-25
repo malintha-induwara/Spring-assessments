@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 @Service
 public final class NoteServiceImpl implements NoteService {
@@ -26,7 +27,25 @@ public final class NoteServiceImpl implements NoteService {
 
     @Override
     public boolean updateNote(String noteId, NoteDTO noteDTO) {
-        for (NoteDTO dto : saveNoteTmp) {
+
+
+        //We dont use following way because when updating data from a running list it can throw
+        //ConcurrentModificationException
+
+//        for (NoteDTO dto : saveNoteTmp) {
+//            if (dto.getNoteId().equals(noteId)) {
+//                dto.setNoteTitle(noteDTO.getNoteTitle());
+//                dto.setNoteDescription(noteDTO.getNoteDescription());
+//                dto.setPriorityLevel(noteDTO.getPriorityLevel());
+//                dto.setCreateDate(noteDTO.getCreateDate());
+//                return true;
+//            }
+//        }
+
+        ListIterator<NoteDTO> updateList = saveNoteTmp.listIterator();
+
+        while (updateList.hasNext()) {
+            NoteDTO dto = updateList.next();
             if (dto.getNoteId().equals(noteId)) {
                 dto.setNoteTitle(noteDTO.getNoteTitle());
                 dto.setNoteDescription(noteDTO.getNoteDescription());
@@ -40,6 +59,24 @@ public final class NoteServiceImpl implements NoteService {
 
     @Override
     public boolean deleteNote(String noteId) {
+
+//        for (NoteDTO noteDTO : saveNoteTmp) {
+//            if (noteDTO.getNoteId().equals(noteId)) {
+//                saveNoteTmp.remove(noteDTO);
+//                return true;
+//            }
+//        }
+
+        ListIterator<NoteDTO> deleteList = saveNoteTmp.listIterator();
+
+        while (deleteList.hasNext()) {
+            NoteDTO dto = deleteList.next();
+            if (dto.getNoteId().equals(noteId)) {
+                deleteList.remove();
+                return true;
+            }
+        }
+
         return false;
     }
 
