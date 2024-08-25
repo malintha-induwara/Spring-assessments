@@ -1,0 +1,20 @@
+Use Stream API(insteed of for loops ,Collection Framework more
+
+
+JPA
+
+1)Integrated with ORM concept
+2)EMbedded abstraction layer top of JDBC
+
+
+.Nets database is SQL Server
+
+Dirty checking
+hibrnate chek whether there are any changes in object or not
+
+H2 is a testing database that used for testcases
+
+redis->in memory database
+
+
+

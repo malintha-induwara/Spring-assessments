@@ -25,5 +25,5 @@
    
    @CompontentScan
 
-
+   @Repositoty
    
