@@ -10,6 +10,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@ToString
 public class NoteDTO implements Serializable {
     private String noteId;
     private String noteTitle;

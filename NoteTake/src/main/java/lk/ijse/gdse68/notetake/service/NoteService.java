@@ -4,7 +4,7 @@ import lk.ijse.gdse68.notetake.dto.NoteDTO;
 
 import java.util.List;
 
-public sealed interface NoteService permits NoteServiceImpl {
+public  interface NoteService {
     String saveNote(NoteDTO noteDTO);
     boolean updateNote(String noteId,NoteDTO noteDTO);
     boolean deleteNote(String noteId);
