@@ -1,0 +1,79 @@
+Mime types are included in the header
+
+
+Java doesnt have multivalue param it has in spring framework
+
+
+
+literarl is someting represnt in code
+
+
+Parsonn Jason
+
+
+Hosting -website  ---|
+		     | - both accesseblen using webbrowser
+Diploy - webapp   ---|
+
+
+
+Web services can devide into two things
+
+
+Type of Web Services -1
+
+SOAP -- Old method
+
+REST -- New
+
+
+###### SOAP#######
+
+
+SOAP- Simple OBject Access Protaocol
+it has a sturcure called soap sturcure
+
+REST - Reprenstal State Transfer
+
+for example take a youtube video 
+
+it stored as bytes if you want to view it you have to change it from byte to JSON
+
+
+Stateless -> Do not store data in save
+Possible to chche maintain
+Uniform Interface  -> 
+Manipulation 
+
+
+
+
+Type of Web Service 2 
+
+
+RPC
+RPC -Hybrid
+RESTFull -> is a standered of REST
+
+
+
+
+######## Why There are two type of confiuraiton ######
+
+WebAppconfig -> API Handl 
+WebAppRoot config -> use for database handle,utiliy handle
+
+
+Component Annotation is Meta Annotate
+
+
+
+
+
+
+
+
+
+
+
+

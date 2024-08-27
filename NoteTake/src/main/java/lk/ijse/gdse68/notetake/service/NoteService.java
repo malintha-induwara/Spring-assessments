@@ -1,10 +1,10 @@
-package lk.ijse.gdse68.notetake.bo;
+package lk.ijse.gdse68.notetake.service;
 
 import lk.ijse.gdse68.notetake.dto.NoteDTO;
 
 import java.util.List;
 
-public sealed interface NoteBo  permits NoteBoImpl {
+public  interface NoteService {
     String saveNote(NoteDTO noteDTO);
     boolean updateNote(String noteId,NoteDTO noteDTO);
     boolean deleteNote(String noteId);

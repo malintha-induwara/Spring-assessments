@@ -1,6 +1,6 @@
 package lk.ijse.gdse68.notetake.controller;
 
-import lk.ijse.gdse68.notetake.bo.NoteBo;
+import lk.ijse.gdse68.notetake.service.NoteService;
 import lk.ijse.gdse68.notetake.dto.NoteDTO;
 import lk.ijse.gdse68.notetake.util.AppUtil;
 import lombok.RequiredArgsConstructor;
@@ -17,47 +17,43 @@ import java.util.List;
 public class NoteController {
 
     @Autowired
-    private final NoteBo noteBo;
+    private final NoteService noteService;
 
     //Todo: CRUD of the note
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createNote(@RequestBody NoteDTO noteDTO){
         //Todo: Handle with BO
-
-        noteDTO.setNoteId(AppUtil.createNoteId());
-        noteBo.saveNote(noteDTO);
+        String saveNote = noteService.saveNote(noteDTO);
         return ResponseEntity.ok("Note Created");
     }
 
-    @GetMapping(value = "allnotes", produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @GetMapping(value = "/allnotes", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<NoteDTO> getAllNotes(){
-        System.out.println("Get All Notes");
-        return null;
+        return noteService.getAllNotes();
     }
 
-    @GetMapping(value = "/{noteId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public NoteDTO getNote(@PathVariable("noteId") String noteId){
-        System.out.println(noteId);
-        return new NoteDTO(
-                "Note",
-                "REST Service",
-                "Explain REST Service",
-                "High",
-                "2024-02-10");
+    @GetMapping(value = "/{noteId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public NoteDTO getNote(@PathVariable ("noteId") String noteId) {
+        return noteService.getSelectedNote(noteId);
     }
-
 
 
     @PutMapping(value = "/{noteId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updateNote(@PathVariable("noteId") String noteId, @RequestBody NoteDTO noteDTO){
-        System.out.println(noteId);
-        System.out.println(noteDTO + "Note Updated");
+        boolean updateNote = noteService.updateNote(noteId, noteDTO);
+        if (updateNote) {
+            System.out.println("Note Updated");
+        }
     }
 
 
     @DeleteMapping(value = "/{noteId}")
     public void deleteNote(@PathVariable ("noteId") String noteId){
-        System.out.println(noteId+" Deleted");
+        boolean deleteNote = noteService.deleteNote(noteId);
+        if (deleteNote) {
+            System.out.println("Note Deleted");
+        }
     }
 
 }
