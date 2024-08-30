@@ -8,8 +8,12 @@ import lk.ijse.gdse68.imagehandler.exception.UserUpdateException;
 import lk.ijse.gdse68.imagehandler.mapper.UserMapper;
 import lk.ijse.gdse68.imagehandler.repository.UserRepository;
 import lk.ijse.gdse68.imagehandler.service.UserService;
+import lk.ijse.gdse68.imagehandler.util.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -26,6 +30,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void saveUser(UserDTO dto) {
         //Convert the DTO to an entity
         User user = userMapper.userDtoToUser(dto);
@@ -33,9 +38,17 @@ public class UserServiceImpl implements UserService {
         userRepository.findByEmail(user.getEmail()).ifPresent(u -> {
             throw new UserCreationException("User already exists with the email: " + user.getEmail());
         });
+
         try {
             //If the user does not exist, save the user
             userRepository.save(user);
+
+            //Save the profile image
+            ImageUtil.saveImage("profile", user.getId(), dto.getProfileImage());
+
+            //Save the banner image
+            ImageUtil.saveImage("banner", user.getId(), dto.getBannerImage());
+
         } catch (Exception e) {
             throw new UserCreationException("An unexpected error occurred while creating the user.", e);
         }
@@ -80,6 +93,24 @@ public class UserServiceImpl implements UserService {
         List<User> users = userRepository.findAll();
         //Convert the entities to DTOs
         return userMapper.usersToUserDto(users);
+    }
+
+    @Override
+    public Resource getImage(String type, Long userId) {
+        userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User does not exist with the id: " + userId));
+        return ImageUtil.getImage(type,userId);
+    }
+
+    @Override
+    public void deleteImage(String type, Long userId) {
+        userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User does not exist with the id: " + userId));
+        ImageUtil.deleteImage(type,userId);
+    }
+
+    @Override
+    public void updateImage(String type, Long userId, MultipartFile file) {
+        userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User does not exist with the id: " + userId));
+        ImageUtil.saveImage(type,userId,file);
     }
 }
 

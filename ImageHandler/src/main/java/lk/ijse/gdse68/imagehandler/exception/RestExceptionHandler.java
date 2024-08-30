@@ -41,5 +41,19 @@ public class RestExceptionHandler {
         ErrorResponse error = new ErrorResponse("USER_UPDATE_ERROR", ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
+
+
+    @ExceptionHandler(ImageDeleteException.class)
+    public ResponseEntity<ErrorResponse> handleImageDeleteException(ImageDeleteException ex) {
+        ErrorResponse error = new ErrorResponse("IMAGE_DELETE_ERROR", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(InvalidImageTypeException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidImageTypeException(InvalidImageTypeException ex) {
+        ErrorResponse error = new ErrorResponse("INVALID_IMAGE_TYPE_ERROR", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
 }
 
