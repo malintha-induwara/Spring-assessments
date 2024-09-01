@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -34,15 +35,22 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public boolean updateNote(String noteId, NoteDTO noteDTO) {
 
-        Note update = noteDao.save(mapping.convertToNoteEntity(noteDTO));
-        if (update != null) {
-            return true;
+        Optional<Note> tempNoteById = noteDao.findById(noteId);
+
+        if (tempNoteById.isEmpty()) {
+            return false;
         }
 
+        tempNoteById.get().setNoteDescription(noteDTO.getNoteDescription());
+        tempNoteById.get().setNoteTitle(noteDTO.getNoteTitle());
+        tempNoteById.get().setCreateDate(noteDTO.getCreateDate());
+        tempNoteById.get().setPriorityLevel(noteDTO.getPriorityLevel());
 
 
-
-
+//        Note update = noteDao.save(mapping.convertToNoteEntity(noteDTO));
+//        if (update != null) {
+//            return true;
+//        }
 
         //We dont use following way because when updating data from a running list it can throw
         //ConcurrentModificationException
@@ -69,7 +77,7 @@ public class NoteServiceImpl implements NoteService {
 //                return true;
 //            }
 //        }
-        return false;
+        return true;
     }
 
     @Override
