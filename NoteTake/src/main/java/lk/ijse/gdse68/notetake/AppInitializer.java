@@ -1,11 +1,17 @@
 package lk.ijse.gdse68.notetake;
 
 
+import jakarta.servlet.MultipartConfigElement;
+import jakarta.servlet.ServletRegistration;
 import lk.ijse.gdse68.notetake.config.WebAppConfig;
 import lk.ijse.gdse68.notetake.config.WebAppRootConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+
+
+    //This include dispatcher servlet configuration and root configuration
+
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return new Class[]{WebAppRootConfig.class};
@@ -19,6 +25,11 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
     @Override
     protected String[] getServletMappings() {
         return new String[]{"/" };
+    }
+
+    @Override
+    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+        registration.setMultipartConfig(new MultipartConfigElement("/tmp/"));
     }
 }
 
