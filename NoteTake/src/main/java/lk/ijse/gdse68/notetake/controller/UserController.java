@@ -46,9 +46,9 @@ public class UserController {
         userDTO.setProfilePic(base64ProfilePic);
 
 
-
-
-
+        //Save the user
+        String userId = userService.saveUser(userDTO);
+        return ResponseEntity.ok(userService.saveUser(userDTO));
     }
 
 

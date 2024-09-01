@@ -1,6 +1,12 @@
 package lk.ijse.gdse68.notetake.service;
 
+import lk.ijse.gdse68.notetake.dao.UserDao;
 import lk.ijse.gdse68.notetake.dto.UserDTO;
+import lk.ijse.gdse68.notetake.entity.User;
+import lk.ijse.gdse68.notetake.util.AppUtil;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,10 +15,22 @@ import java.util.List;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
+
+
+    @Autowired
+    private UserDao userDao;
+
+
+    @Autowired
+    private ModelMapper modelMapper;
+
     @Override
     public String saveUser(UserDTO userDTO) {
-        return "";
+        userDTO.setUserId(AppUtil.createUserId());
+        userDao.save(modelMapper.map(userDTO, User.class));
+        return "User saved successfully";
     }
 
     @Override
