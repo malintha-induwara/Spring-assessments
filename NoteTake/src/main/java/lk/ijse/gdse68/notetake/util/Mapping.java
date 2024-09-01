@@ -14,12 +14,12 @@ public class Mapping {
     @Autowired
     private ModelMapper modelMapper;
 
-    public NoteDTO convertToNoteDTO(Object object) {
-        return modelMapper.map(object, NoteDTO.class);
+    public NoteDTO convertToNoteDTO(Note note) {
+        return modelMapper.map(note, NoteDTO.class);
     }
 
-    public Note convertToNoteEntity(Object object) {
-        return modelMapper.map(object, Note.class);
+    public Note convertToNoteEntity(NoteDTO noteDTO) {
+        return modelMapper.map(noteDTO, Note.class);
     }
 
     public List<NoteDTO> convertToNoteDTOList(List<Note> list) {
