@@ -45,6 +45,7 @@ public class UserController {
         userDTO.setPassword(password);
         userDTO.setProfilePic(base64ProfilePic);
 
+        userService.hello(AppUtil.ResponseCode.SUCCESS);
 
         //Save the user
         String userId = userService.saveUser(userDTO);

@@ -52,5 +52,15 @@ public class UserServiceImpl implements UserService{
     public List<UserDTO> getAllUsers() {
         return List.of();
     }
+
+    @Override
+    public void hello(AppUtil.ResponseCode responseCode) {
+
+
+        if (responseCode == AppUtil.ResponseCode.SUCCESS) {
+            System.out.println("Success");
+        }
+
+    }
 }
 

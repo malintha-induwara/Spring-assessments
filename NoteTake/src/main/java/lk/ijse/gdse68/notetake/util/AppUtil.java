@@ -4,6 +4,12 @@ import java.util.Base64;
 import java.util.UUID;
 
 public class AppUtil {
+
+    public enum ResponseCode{
+        SUCCESS,FAILED
+    }
+
+
     public static String createNoteId() {
         return "NOTE-"+UUID.randomUUID();
     }
