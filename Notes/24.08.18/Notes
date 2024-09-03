@@ -60,12 +60,15 @@ RESTFull -> is a standered of REST
 
 ######## Why There are two type of confiuraiton ######
 
-WebAppconfig -> API Handl 
-WebAppRoot config -> use for database handle,utiliy handle
+WebAppconfig -> API Handl (configarations relate to presentation layer)
+WebAppRootconfig -> use for database handle,utiliy handle  , 
+also we put things doesnt corlate to the business logic(presentation layer) - dao
 
 
 Component Annotation is Meta Annotate
 
+
+Bean ambiguity - is there is multiple beans in the sametype
 
 
 

@@ -5,6 +5,7 @@ import lk.ijse.gdse68.notetake.dto.NoteDTO;
 import lk.ijse.gdse68.notetake.util.AppUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,11 @@ public class NoteController {
 
     @Autowired
     private final NoteService noteService;
+
+    @GetMapping("health")
+    public String healthChecker(){
+        return "Note Taker is running";
+    }
 
     //Todo: CRUD of the note
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -40,20 +46,14 @@ public class NoteController {
 
 
     @PutMapping(value = "/{noteId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void updateNote(@PathVariable("noteId") String noteId, @RequestBody NoteDTO noteDTO){
-        boolean updateNote = noteService.updateNote(noteId, noteDTO);
-        if (updateNote) {
-            System.out.println("Note Updated");
-        }
+    public ResponseEntity<String> updateNote(@PathVariable("noteId") String noteId, @RequestBody NoteDTO noteDTO){
+        return noteService.updateNote(noteId, noteDTO) ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 
     @DeleteMapping(value = "/{noteId}")
-    public void deleteNote(@PathVariable ("noteId") String noteId){
-        boolean deleteNote = noteService.deleteNote(noteId);
-        if (deleteNote) {
-            System.out.println("Note Deleted");
-        }
+    public ResponseEntity<String> deleteNote(@PathVariable ("noteId") String noteId){
+        return noteService.deleteNote(noteId) ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
 }

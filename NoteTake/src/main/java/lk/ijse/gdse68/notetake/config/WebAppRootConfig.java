@@ -38,6 +38,7 @@ public class WebAppRootConfig {
         return dataSource;
     }
 
+
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
