@@ -48,8 +48,12 @@ public class UserController {
         userService.hello(AppUtil.ResponseCode.SUCCESS);
 
         //Save the user
-        String userId = userService.saveUser(userDTO);
-        return ResponseEntity.ok(userService.saveUser(userDTO));
+        String saveStatus = userService.saveUser(userDTO);
+        if (saveStatus.contains("User saved successfully")){
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }else {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DeleteMapping("/{id}")

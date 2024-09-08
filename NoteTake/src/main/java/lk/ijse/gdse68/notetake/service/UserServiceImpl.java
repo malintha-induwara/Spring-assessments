@@ -31,8 +31,11 @@ public class UserServiceImpl implements UserService{
     @Override
     public String saveUser(UserDTO userDTO) {
         userDTO.setUserId(AppUtil.createUserId());
-        userDao.save(modelMapper.map(userDTO, User.class));
-        return "User saved successfully";
+        User save = userDao.save(modelMapper.map(userDTO, User.class));
+        if (save != null && save.getUserId() != null) {
+            return "User saved successfully";
+        }
+        return "User saved failed";
     }
 
     @Override
