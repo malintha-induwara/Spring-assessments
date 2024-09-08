@@ -50,7 +50,8 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserDTO getSelectedUser(String userId) {
-        return null;
+        User userEntityByUserId = userDao.getUserByUserId(userId);
+        return modelMapper.map(userEntityByUserId, UserDTO.class);
     }
 
     @Override
