@@ -1,7 +1,7 @@
 package lk.ijse.gdse68.notetake.util;
 
-import lk.ijse.gdse68.notetake.dto.NoteDTO;
-import lk.ijse.gdse68.notetake.dto.UserDTO;
+import lk.ijse.gdse68.notetake.dto.impl.NoteDTO;
+import lk.ijse.gdse68.notetake.dto.impl.UserDTO;
 import lk.ijse.gdse68.notetake.entity.Note;
 import lk.ijse.gdse68.notetake.entity.User;
 import org.modelmapper.ModelMapper;

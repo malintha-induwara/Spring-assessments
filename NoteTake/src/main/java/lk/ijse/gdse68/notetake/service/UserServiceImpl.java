@@ -1,8 +1,11 @@
 package lk.ijse.gdse68.notetake.service;
 
+import lk.ijse.gdse68.notetake.customObj.UserErrorResponse;
+import lk.ijse.gdse68.notetake.customObj.UserResponse;
 import lk.ijse.gdse68.notetake.dao.UserDao;
-import lk.ijse.gdse68.notetake.dto.UserDTO;
+import lk.ijse.gdse68.notetake.dto.impl.UserDTO;
 import lk.ijse.gdse68.notetake.entity.User;
+import lk.ijse.gdse68.notetake.exception.UserNotFoundException;
 import lk.ijse.gdse68.notetake.util.AppUtil;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -39,11 +42,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean updateUser(String userId, UserDTO userDTO) {
-        Optional<User> userById = userDao.findById(userId);
+    public void updateUser(UserDTO userDTO) {
+        Optional<User> userById = userDao.findById(userDTO.getUserId());
 
         if (userById.isEmpty()) {
-            return false;
+            throw new UserNotFoundException("User not found");
         }
 
         userById.get().setFirstName(userDTO.getFirstName());
@@ -51,7 +54,6 @@ public class UserServiceImpl implements UserService{
         userById.get().setEmail(userDTO.getEmail());
         userById.get().setPassword(userDTO.getPassword());
         userById.get().setProfilePic(userDTO.getProfilePic());
-        return true;
     }
 
     @Override
@@ -65,9 +67,13 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserDTO getSelectedUser(String userId) {
-        User userEntityByUserId = userDao.getUserByUserId(userId);
-        return modelMapper.map(userEntityByUserId, UserDTO.class);
+    public UserResponse getSelectedUser(String userId) {
+        if (userDao.existsById(userId)){
+            User userEntityByUserId = userDao.getUserByUserId(userId);
+            return modelMapper.map(userEntityByUserId, UserDTO.class);
+        }else {
+            return new UserErrorResponse(0, "User not found");
+        }
     }
 
     @Override

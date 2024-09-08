@@ -1,6 +1,6 @@
 package lk.ijse.gdse68.notetake.service;
 
-import lk.ijse.gdse68.notetake.dto.NoteDTO;
+import lk.ijse.gdse68.notetake.dto.impl.NoteDTO;
 
 import java.util.List;
 

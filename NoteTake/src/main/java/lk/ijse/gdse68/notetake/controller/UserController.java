@@ -1,7 +1,9 @@
 package lk.ijse.gdse68.notetake.controller;
 
 
-import lk.ijse.gdse68.notetake.dto.UserDTO;
+import lk.ijse.gdse68.notetake.customObj.UserResponse;
+import lk.ijse.gdse68.notetake.dto.impl.UserDTO;
+import lk.ijse.gdse68.notetake.exception.UserNotFoundException;
 import lk.ijse.gdse68.notetake.service.UserService;
 import lk.ijse.gdse68.notetake.util.AppUtil;
 import lombok.RequiredArgsConstructor;
@@ -63,7 +65,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserDTO getSelectedUser(@PathVariable ("id") String userId){
+    public UserResponse getSelectedUser(@PathVariable ("id") String userId){
         return userService.getSelectedUser(userId);
     }
 
@@ -76,22 +78,29 @@ public class UserController {
 
 
     @PatchMapping(value = "/{id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> updateUser(@PathVariable("id") String id,
+    public ResponseEntity<Void> updateUser(@PathVariable("id") String id,
                                              @RequestPart("firstName") String updateFirstName,
                                              @RequestPart("lastName") String updateLastName,
                                              @RequestPart("email") String updateEmail,
                                              @RequestPart("password") String updatePassword,
                                              @RequestPart("profilePic") String updateProfilePic){
 
-        String updatedBase64ProfilePic = AppUtil.toBase64ProfilePic(updateProfilePic);
-        UserDTO userDTO = new UserDTO();
-        userDTO.setFirstName(updateFirstName);
-        userDTO.setLastName(updateLastName);
-        userDTO.setEmail(updateEmail);
-        userDTO.setPassword(updatePassword);
-        userDTO.setProfilePic(updatedBase64ProfilePic);
-        userService.updateUser(id, userDTO);
-        return userService.updateUser(id, userDTO) ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        try {
+            String updateBase64ProfilePic = AppUtil.toBase64ProfilePic(updateProfilePic);
+            var updateUser = new UserDTO();
+            updateUser.setUserId(id);
+            updateUser.setFirstName(updateFirstName);
+            updateUser.setLastName(updateLastName);
+            updateUser.setPassword(updatePassword);
+            updateUser.setEmail(updateEmail);
+            updateUser.setProfilePic(updateBase64ProfilePic);
+            userService.updateUser(updateUser);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch (UserNotFoundException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
 
