@@ -32,7 +32,7 @@ public class UserController {
             @RequestPart("email") String email,
             @RequestPart("password") String password,
             @RequestPart("profilePic") String profilePic
-    ){
+    ) {
 
 
         //Handle profile pic
@@ -51,39 +51,44 @@ public class UserController {
 
         //Save the user
         String saveStatus = userService.saveUser(userDTO);
-        if (saveStatus.contains("User saved successfully")){
+        if (saveStatus.contains("User saved successfully")) {
             return new ResponseEntity<>(HttpStatus.CREATED);
-        }else {
+        } else {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable("id")String userId){
-        userService.deleteUser(userId);
-        return userService.deleteUser(userId) ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<Void> deleteUser(@PathVariable("id") String userId) {
+        try {
+            userService.deleteUser(userId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (UserNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }    
     }
 
-    @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserResponse getSelectedUser(@PathVariable ("id") String userId){
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public UserResponse getSelectedUser(@PathVariable("id") String userId) {
         return userService.getSelectedUser(userId);
     }
 
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<UserDTO> getAllUsers(){
+    public List<UserDTO> getAllUsers() {
         return userService.getAllUsers();
     }
 
 
-
-    @PatchMapping(value = "/{id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PatchMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> updateUser(@PathVariable("id") String id,
-                                             @RequestPart("firstName") String updateFirstName,
-                                             @RequestPart("lastName") String updateLastName,
-                                             @RequestPart("email") String updateEmail,
-                                             @RequestPart("password") String updatePassword,
-                                             @RequestPart("profilePic") String updateProfilePic){
+                                           @RequestPart("firstName") String updateFirstName,
+                                           @RequestPart("lastName") String updateLastName,
+                                           @RequestPart("email") String updateEmail,
+                                           @RequestPart("password") String updatePassword,
+                                           @RequestPart("profilePic") String updateProfilePic) {
 
         try {
             String updateBase64ProfilePic = AppUtil.toBase64ProfilePic(updateProfilePic);
@@ -96,9 +101,9 @@ public class UserController {
             updateUser.setProfilePic(updateBase64ProfilePic);
             userService.updateUser(updateUser);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }catch (UserNotFoundException e){
+        } catch (UserNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

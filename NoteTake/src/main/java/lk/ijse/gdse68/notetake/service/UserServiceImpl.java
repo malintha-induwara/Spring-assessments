@@ -5,6 +5,7 @@ import lk.ijse.gdse68.notetake.customObj.UserResponse;
 import lk.ijse.gdse68.notetake.dao.UserDao;
 import lk.ijse.gdse68.notetake.dto.impl.UserDTO;
 import lk.ijse.gdse68.notetake.entity.User;
+import lk.ijse.gdse68.notetake.exception.DataPersistFailedException;
 import lk.ijse.gdse68.notetake.exception.UserNotFoundException;
 import lk.ijse.gdse68.notetake.util.AppUtil;
 import lombok.RequiredArgsConstructor;
@@ -32,13 +33,12 @@ public class UserServiceImpl implements UserService{
     private ModelMapper modelMapper;
 
     @Override
-    public String saveUser(UserDTO userDTO) {
+    public void saveUser(UserDTO userDTO) {
         userDTO.setUserId(AppUtil.createUserId());
         User save = userDao.save(modelMapper.map(userDTO, User.class));
-        if (save != null && save.getUserId() != null) {
-            return "User saved successfully";
+        if (save == null && save.getUserId() == null) {
+            throw new DataPersistFailedException("User save failed");
         }
-        return "User saved failed";
     }
 
     @Override
@@ -57,12 +57,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean deleteUser(String userId) {
-        if(userDao.existsById(userId)){
-            userDao.deleteById(userId);
-            return true;
+    public void deleteUser(String userId) {
+        Optional<User> selectedUserId = userDao.findById(userId);
+        if(selectedUserId.isEmpty()){
+            throw new UserNotFoundException("User not found");
         }else {
-            return false;
+            userDao.deleteById(userId);
         }
     }
 
@@ -84,8 +84,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void hello(AppUtil.ResponseCode responseCode) {
-
-
         if (responseCode == AppUtil.ResponseCode.SUCCESS) {
             System.out.println("Success");
         }
