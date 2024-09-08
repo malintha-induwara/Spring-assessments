@@ -11,6 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/user")
@@ -62,5 +64,30 @@ public class UserController {
     }
 
 
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<UserDTO> getAllUsers(){
+        return userService.getAllUsers();
+    }
+
+
+
+    @PatchMapping(value = "/{id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> updateUser(@PathVariable("id") String id,
+                                             @RequestPart("firstName") String updateFirstName,
+                                             @RequestPart("lastName") String updateLastName,
+                                             @RequestPart("email") String updateEmail,
+                                             @RequestPart("password") String updatePassword,
+                                             @RequestPart("profilePic") String updateProfilePic){
+
+        String updatedBase64ProfilePic = AppUtil.toBase64ProfilePic(updateProfilePic);
+        UserDTO userDTO = new UserDTO();
+        userDTO.setFirstName(updateFirstName);
+        userDTO.setLastName(updateLastName);
+        userDTO.setEmail(updateEmail);
+        userDTO.setPassword(updatePassword);
+        userDTO.setProfilePic(updatedBase64ProfilePic);
+        userService.updateUser(id, userDTO);
+        return userService.updateUser(id, userDTO) ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }
 

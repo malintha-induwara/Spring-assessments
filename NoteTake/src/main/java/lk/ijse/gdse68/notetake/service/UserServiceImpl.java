@@ -6,11 +6,13 @@ import lk.ijse.gdse68.notetake.entity.User;
 import lk.ijse.gdse68.notetake.util.AppUtil;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -35,7 +37,18 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean updateUser(String userId, UserDTO userDTO) {
-        return false;
+        Optional<User> userById = userDao.findById(userId);
+
+        if (userById.isEmpty()) {
+            return false;
+        }
+
+        userById.get().setFirstName(userDTO.getFirstName());
+        userById.get().setLastName(userDTO.getLastName());
+        userById.get().setEmail(userDTO.getEmail());
+        userById.get().setPassword(userDTO.getPassword());
+        userById.get().setProfilePic(userDTO.getProfilePic());
+        return true;
     }
 
     @Override
@@ -56,7 +69,8 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<UserDTO> getAllUsers() {
-        return List.of();
+        List<User> getAllUsers = userDao.findAll();
+        return modelMapper.map(getAllUsers, new TypeToken<List<UserDTO>>() {}.getType());
     }
 
     @Override
