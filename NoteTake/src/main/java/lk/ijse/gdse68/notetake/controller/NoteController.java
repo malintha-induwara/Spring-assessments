@@ -1,8 +1,8 @@
 package lk.ijse.gdse68.notetake.controller;
 
+import lk.ijse.gdse68.notetake.exception.NoteNotFoundException;
 import lk.ijse.gdse68.notetake.service.NoteService;
-import lk.ijse.gdse68.notetake.dto.NoteDTO;
-import lk.ijse.gdse68.notetake.util.AppUtil;
+import lk.ijse.gdse68.notetake.dto.impl.NoteDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,8 +46,15 @@ public class NoteController {
 
 
     @PutMapping(value = "/{noteId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> updateNote(@PathVariable("noteId") String noteId, @RequestBody NoteDTO noteDTO){
-        return noteService.updateNote(noteId, noteDTO) ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<Void> updateNote(@PathVariable("noteId") String noteId, @RequestBody NoteDTO noteDTO){
+        try {
+            noteService.updateNote(noteId, noteDTO);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch (NoteNotFoundException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 

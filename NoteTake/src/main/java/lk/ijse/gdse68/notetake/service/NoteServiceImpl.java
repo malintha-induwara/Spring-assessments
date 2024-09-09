@@ -1,18 +1,16 @@
 package lk.ijse.gdse68.notetake.service;
 
 import lk.ijse.gdse68.notetake.dao.NoteDao;
-import lk.ijse.gdse68.notetake.dto.NoteDTO;
+import lk.ijse.gdse68.notetake.dto.impl.NoteDTO;
 import lk.ijse.gdse68.notetake.entity.Note;
+import lk.ijse.gdse68.notetake.exception.NoteNotFoundException;
 import lk.ijse.gdse68.notetake.util.AppUtil;
 import lk.ijse.gdse68.notetake.util.Mapping;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Optional;
 
 @Service
@@ -33,12 +31,12 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public boolean updateNote(String noteId, NoteDTO noteDTO) {
+    public void updateNote(String noteId, NoteDTO noteDTO) {
 
         Optional<Note> tempNoteById = noteDao.findById(noteId);
 
         if (tempNoteById.isEmpty()) {
-            return false;
+            throw new NoteNotFoundException("Note not found");
         }
 
         tempNoteById.get().setNoteDescription(noteDTO.getNoteDescription());
@@ -77,7 +75,7 @@ public class NoteServiceImpl implements NoteService {
 //                return true;
 //            }
 //        }
-        return true;
+
     }
 
     @Override

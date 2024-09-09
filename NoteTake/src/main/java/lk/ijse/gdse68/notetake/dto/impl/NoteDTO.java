@@ -1,5 +1,6 @@
-package lk.ijse.gdse68.notetake.dto;
+package lk.ijse.gdse68.notetake.dto.impl;
 
+import lk.ijse.gdse68.notetake.dto.SuperDTO;
 import lombok.*;
 
 import java.io.Serializable;
@@ -11,7 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Data
 @ToString
-public class NoteDTO implements Serializable {
+public class NoteDTO implements SuperDTO {
     private String noteId;
     private String noteTitle;
     private String noteDescription;
