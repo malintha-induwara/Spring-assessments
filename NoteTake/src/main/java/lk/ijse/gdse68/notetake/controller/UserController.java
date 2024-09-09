@@ -3,6 +3,7 @@ package lk.ijse.gdse68.notetake.controller;
 
 import lk.ijse.gdse68.notetake.customObj.UserResponse;
 import lk.ijse.gdse68.notetake.dto.impl.UserDTO;
+import lk.ijse.gdse68.notetake.exception.DataPersistFailedException;
 import lk.ijse.gdse68.notetake.exception.UserNotFoundException;
 import lk.ijse.gdse68.notetake.service.UserService;
 import lk.ijse.gdse68.notetake.util.AppUtil;
@@ -26,34 +27,29 @@ public class UserController {
 
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> saveUser(
-            @RequestPart("firstName") String fileName,
+    public ResponseEntity<Void> saveUser(
+            @RequestPart("firstName") String firstName,
             @RequestPart("lastName") String lastName,
             @RequestPart("email") String email,
             @RequestPart("password") String password,
             @RequestPart("profilePic") String profilePic
     ) {
 
-
-        //Handle profile pic
-        String base64ProfilePic = AppUtil.toBase64ProfilePic(profilePic);
-
-
-        //Build the user object
-        UserDTO userDTO = new UserDTO();
-        userDTO.setFirstName(fileName);
-        userDTO.setLastName(lastName);
-        userDTO.setEmail(email);
-        userDTO.setPassword(password);
-        userDTO.setProfilePic(base64ProfilePic);
-
-        userService.hello(AppUtil.ResponseCode.SUCCESS);
-
-        //Save the user
-        String saveStatus = userService.saveUser(userDTO);
-        if (saveStatus.contains("User saved successfully")) {
+        try {
+            String base64ProfilePic = AppUtil.toBase64ProfilePic(profilePic);
+            // build the user object
+            UserDTO buildUserDTO = new UserDTO();
+            buildUserDTO.setFirstName(firstName);
+            buildUserDTO.setLastName(lastName);
+            buildUserDTO.setEmail(email);
+            buildUserDTO.setPassword(password);
+            buildUserDTO.setProfilePic(base64ProfilePic);
+            //send to the service layer
+            userService.saveUser(buildUserDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
-        } else {
+        }catch (DataPersistFailedException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -67,7 +63,7 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }    
+        }
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
