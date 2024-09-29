@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public void deleteUser(String userId) {
         Optional<User> selectedUserId = userDao.findById(userId);
-        if(selectedUserId.isEmpty()){
+        if(!selectedUserId.isPresent()){
             throw new UserNotFoundException("User not found");
         }else {
             userDao.deleteById(userId);
@@ -87,7 +87,6 @@ public class UserServiceImpl implements UserService{
         if (responseCode == AppUtil.ResponseCode.SUCCESS) {
             System.out.println("Success");
         }
-
     }
 }
 

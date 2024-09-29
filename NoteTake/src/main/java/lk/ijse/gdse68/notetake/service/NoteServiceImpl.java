@@ -84,9 +84,9 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public boolean deleteNote(String noteId) {
+    public void deleteNote(String noteId) {
 
-        noteDao.findById(noteId).ifPresent(note -> noteDao.delete(note));
+     //   noteDao.findById(noteId).ifPresent(note -> noteDao.delete(note));
 
 
 //        for (NoteDTO noteDTO : saveNoteTmp) {
@@ -105,8 +105,12 @@ public class NoteServiceImpl implements NoteService {
 //                return true;
 //            }
 //        }
-
-        return false;
+        Optional<Note> findId = noteDao.findById(noteId);
+        if(!findId.isPresent()){
+            throw new NoteNotFoundException("Note not found");
+        }else {
+            noteDao.deleteById(noteId);
+        }
     }
 
     @Override

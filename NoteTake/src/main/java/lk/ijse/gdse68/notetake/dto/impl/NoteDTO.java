@@ -19,5 +19,6 @@ public class NoteDTO implements SuperDTO, NoteResponse {
     private String noteDescription;
     private String priorityLevel;
     private String createDate;
+    private String userId;
 }
 
