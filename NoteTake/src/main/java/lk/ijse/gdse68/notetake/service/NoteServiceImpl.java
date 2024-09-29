@@ -1,8 +1,11 @@
 package lk.ijse.gdse68.notetake.service;
 
+import lk.ijse.gdse68.notetake.customObj.NoteErrorResponse;
+import lk.ijse.gdse68.notetake.customObj.NoteResponse;
 import lk.ijse.gdse68.notetake.dao.NoteDao;
 import lk.ijse.gdse68.notetake.dto.impl.NoteDTO;
 import lk.ijse.gdse68.notetake.entity.Note;
+import lk.ijse.gdse68.notetake.exception.DataPersistFailedException;
 import lk.ijse.gdse68.notetake.exception.NoteNotFoundException;
 import lk.ijse.gdse68.notetake.util.AppUtil;
 import lk.ijse.gdse68.notetake.util.Mapping;
@@ -24,10 +27,12 @@ public class NoteServiceImpl implements NoteService {
     private Mapping mapping;
 
     @Override
-    public String saveNote(NoteDTO noteDTO) {
+    public void saveNote(NoteDTO noteDTO) {
         noteDTO.setNoteId(AppUtil.createNoteId());
-        noteDao.save(mapping.convertToNoteEntity(noteDTO));
-        return "Saved successfully in Service layer";
+        Note save = noteDao.save(mapping.convertToNoteEntity(noteDTO));
+        if(save == null){
+            throw new DataPersistFailedException("Cannot save note");
+        }
     }
 
     @Override
@@ -105,17 +110,12 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public NoteDTO getSelectedNote(String noteId) {
-        Note note = noteDao.findById(noteId).orElse(null);
-        if (note != null) {
-            return mapping.convertToNoteDTO(note);
+    public NoteResponse getSelectedNote(String noteId) {
+        if(noteDao.existsById(noteId)){
+            return mapping.convertToNoteDTO(noteDao.getReferenceById(noteId));
+        }else {
+            return new NoteErrorResponse(0,"Note not found");
         }
-//        for (NoteDTO noteDTO : saveNoteTmp) {
-//            if (noteDTO.getNoteId().equals(noteId)) {
-//                return noteDTO;
-//            }
-//        }
-        return null;
     }
 
     @Override
