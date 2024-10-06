@@ -26,3 +26,7 @@ hikari
 
 the difference is hikari has connection pool -> jndi is connection pool
 driver manager doesnt have connection pool
+
+
+there is a way to custamize configs(data base) for different envirments
+its called profiling
