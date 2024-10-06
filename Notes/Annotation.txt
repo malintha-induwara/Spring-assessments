@@ -18,12 +18,25 @@
    
    
    
-   @Qulifer->
-   @Primary->
+   @Qulifer-> Used to resolve ambiguity in Spring dependency injection when multiple beans of the same type are present. It allows specifying the exact bean to inject.
+
+
+
+   @Primary-> Marks a bean as the primary bean to be chosen when multiple candidates are available for autowiring.
    
    @Scope -> Used to define the scope of a bean there are 4 types (Singleton,Prototype,Session,Request)  but we can only use Singleton and Prototype  , only in web application we can use session and Request
    
    @CompontentScan
 
-   @Repositoty
+   @Repositoty -> A specialization of @Component, it marks a class as a data access object (DAO). It is used to encapsulate database interaction logic.
+
+   @PostConstruct -> Marks a method to be called after the bean’s initialization. It is used for any setup that needs to occur after dependency injection.
+
+   @PreDestroy -> Marks a method to be invoked when the Spring bean is about to be destroyed, allowing for cleanup tasks before bean destruction.
+
+
+   @EnableJpaRepositories -> Enables JPA repositories by scanning the specified package for Spring Data JPA repository interfaces.
+
+    @Transactional ->  Indicates that a method or class should be wrapped in a transaction. It ensures that a series of operations either complete successfully or rollback to maintain consistency.
+
    
