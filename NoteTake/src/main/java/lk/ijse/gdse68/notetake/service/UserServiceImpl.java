@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService{
     public void saveUser(UserDTO userDTO) {
         userDTO.setUserId(AppUtil.createUserId());
         User save = userDao.save(modelMapper.map(userDTO, User.class));
-        if (save == null && save.getUserId() == null) {
+        if (save == null) {
             throw new DataPersistFailedException("User save failed");
         }
     }
@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public void deleteUser(String userId) {
         Optional<User> selectedUserId = userDao.findById(userId);
-        if(selectedUserId.isEmpty()){
+        if(!selectedUserId.isPresent()){
             throw new UserNotFoundException("User not found");
         }else {
             userDao.deleteById(userId);
@@ -87,7 +87,6 @@ public class UserServiceImpl implements UserService{
         if (responseCode == AppUtil.ResponseCode.SUCCESS) {
             System.out.println("Success");
         }
-
     }
 }
 

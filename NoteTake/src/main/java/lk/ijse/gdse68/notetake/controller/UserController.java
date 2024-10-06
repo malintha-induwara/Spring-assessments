@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -32,10 +33,11 @@ public class UserController {
             @RequestPart("lastName") String lastName,
             @RequestPart("email") String email,
             @RequestPart("password") String password,
-            @RequestPart("profilePic") String profilePic
+            @RequestPart("profilePic") MultipartFile profilePic
     ) {
 
         try {
+            //byte [] imageByteCollection = profilePic.getBytes();
             String base64ProfilePic = AppUtil.toBase64ProfilePic(profilePic);
             // build the user object
             UserDTO buildUserDTO = new UserDTO();
@@ -84,9 +86,10 @@ public class UserController {
                                            @RequestPart("lastName") String updateLastName,
                                            @RequestPart("email") String updateEmail,
                                            @RequestPart("password") String updatePassword,
-                                           @RequestPart("profilePic") String updateProfilePic) {
+                                           @RequestPart("profilePic") MultipartFile updateProfilePic) {
 
         try {
+
             String updateBase64ProfilePic = AppUtil.toBase64ProfilePic(updateProfilePic);
             var updateUser = new UserDTO();
             updateUser.setUserId(id);

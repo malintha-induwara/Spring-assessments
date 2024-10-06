@@ -1,0 +1,25 @@
+we use multipart when we need to send (binary data)
+
+in spring controller layer is also precentation layer
+
+spring buffer and spring builder
+
+Add licance and readme files
+
+HTTP verb
+HTTP noun
+
+
+PathVariable mean we append value to the URL
+Use Regeix to validate the input urls
+
+Difference between jpa and jdbc
+
+There are two hibernate verisons 
+
+Native hibernate and hibernate jpa
+
+Mime types
+
+
+
