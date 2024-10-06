@@ -30,3 +30,5 @@ driver manager doesnt have connection pool
 
 there is a way to custamize configs(data base) for different envirments
 its called profiling
+
+authneitcations vs Authorization
