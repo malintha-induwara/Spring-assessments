@@ -1,0 +1,62 @@
+# Project Tools
+
+## Build and Dependency management
+
+
+### What is build application
+
+* Accummulate all the functions and internal process to deliverable unit
+* Ready to ship the product
+
+
+## Build product  use to:
+* Get the final artifact
+* Testing if need
+* Deploy
+
+## Build Tools With Java
+
+* Maven
+* Apache ANT
+* Gradle
+
+
+### Apache ANT
+
+Old Project
+
+
+### Maven 
+
+zonacube, Autoclosable interface
+
+
+## Maven Lifecycle
+
+Plugin
+
+  |
+  v
+Goal
+  |
+  v
+
+ Main Lifecycle
+
+  Clean -> Clean Everything and recreate
+  Default -> Handle build and deployment
+  Site -> Create Project Website/documentation purpose
+
+Default L/C phases
+
+  Validate -> Check the standard and have necessary information
+  Compile -> Compile the source code
+  Testing -> Test with suitabl unit resting framework
+  Package -> Create as shipping ready format | Ex: JAR
+  Verify -> Check the equality ciitera has met
+  Install -> Install in local repository
+  Deploy -> Copies to remote repository for sharing
+
+Gradle
+
+* Gradle is alternative to maven 
