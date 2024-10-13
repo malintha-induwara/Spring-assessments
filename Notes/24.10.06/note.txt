@@ -1,0 +1,34 @@
+multipart is used to file upload
+it has own header and body 
+
+********
+when opening a project use pom.xml or gradle.build (right click it and give the open as Intellij)
+
+by defualt spring boot has tomcat inside it 
+
+we can configure spring boot with .yml as well ( instead of application.properties)
+but you have to use different structure
+
+application.yml
+
+spring:
+  application:
+    name: NoteTakerSpringBoot
+server:
+  port: 5050
+
+
+data source used to connect with a database
+dmds
+jndi         are examples for data source
+hikari
+
+
+the difference is hikari has connection pool -> jndi is connection pool
+driver manager doesnt have connection pool
+
+
+there is a way to custamize configs(data base) for different envirments
+its called profiling
+
+authneitcations vs Authorization
