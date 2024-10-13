@@ -1,5 +1,6 @@
 package lk.ijse.gdse68.notetakerspringboot.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +13,13 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
+
+    @Value("${secure.basic.username}")
+    private String username;
+    @Value("${secure.basic.password}")
+    private String password;
+    @Value("${secure.basic.role}")
+    private String role;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -27,9 +35,9 @@ public class SecurityConfig {
     public InMemoryUserDetailsManager inMemoryUserDetailsManager(){
 
         UserDetails principalUser = User.withDefaultPasswordEncoder()
-                .username("root")
-                .password("123")
-                .roles("ADMIN")
+                .username(username)
+                .password(password)
+                .roles(role)
                 .build();
 
         return new InMemoryUserDetailsManager(principalUser);
