@@ -1,5 +1,6 @@
 package lk.ijse.gdse68.notetakerspringboot.config;
 
+import lk.ijse.gdse68.notetakerspringboot.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +21,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final UserService userService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -39,7 +41,7 @@ public class SecurityConfig {
     @Bean
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider dap = new DaoAuthenticationProvider();
-        dap.setUserDetailsService();
+        dap.setUserDetailsService(userService.userDetailsService());
         dap.setPasswordEncoder(passwordEncoder());
         return dap;
     }
