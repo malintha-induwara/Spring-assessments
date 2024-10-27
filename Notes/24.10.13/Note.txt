@@ -15,3 +15,5 @@ Tamper token -> Changeing a details of a token that digitaly sigend by a server
 
 
 Session -> is a time period that that allowed by the system for the user 
+
+

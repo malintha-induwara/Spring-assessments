@@ -2,19 +2,14 @@ package lk.ijse.gdse68.springsecurity.config;
 
 import lk.ijse.gdse68.springsecurity.filter.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -33,9 +28,6 @@ public class SecurityConfig {
     private final JwtFilter jwtFilter;
 
 
-
-
-
     @Autowired
     public SecurityConfig(UserDetailsService userDetailsService, JwtFilter jwtFilter) {
         this.userDetailsService = userDetailsService;
@@ -45,28 +37,24 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
-        httpSecurity.csrf(customer ->customer.disable());
+        httpSecurity.csrf(customer -> customer.disable());
         httpSecurity.authorizeHttpRequests((request) -> {
 
                     request.requestMatchers("/").permitAll();
                     request.requestMatchers("/css/*").permitAll();
 
-                    request.requestMatchers("/api/v1/auth/sign_in","/api/v1/auth/sign_up").permitAll();
+                    request.requestMatchers("/api/v1/auth/sign_in", "/api/v1/auth/sign_up").permitAll();
                     request.anyRequest().authenticated();
                 }
 
         );
-        //httpSecurity.httpBasic(Customizer.withDefaults());
+//        httpSecurity.httpBasic(Customizer.withDefaults());
         httpSecurity.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 //        httpSecurity.logout(AbstractHttpConfigurer::disable);
 
 
-
-
-
-
-        //        httpSecurity.formLogin(Customizer.withDefaults());
+//                httpSecurity.formLogin(Customizer.withDefaults());
 
         return httpSecurity.build();
     }
