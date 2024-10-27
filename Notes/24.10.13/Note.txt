@@ -1,0 +1,19 @@
+Principal User is the user that currently log into the system
+
+Dependancy Injection
+
+*Field Injection
+*Getter Injection
+*Consturcor Injection
+*Value Injection
+
+Read About JWT token in jwt.into
+
+Claims -> the details includeed in the token
+
+Tamper token -> Changeing a details of a token that digitaly sigend by a server
+
+
+Session -> is a time period that that allowed by the system for the user 
+
+

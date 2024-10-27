@@ -36,31 +36,31 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-//        String authHeader = request.getHeader("Authorization");
+        String authHeader = request.getHeader("Authorization");
         String token = null;
         String userName = null;
 
-//        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-//            token = authHeader.substring(7);
-//            userName = jwtService.extractUsername(token);
-//        }
-
-        Cookie[] cookies = request.getCookies();
-        if (cookies!=null){
-            for (Cookie cookie : cookies) {
-                if ("jwt".equals(cookie.getName())){
-                    token = cookie.getValue();
-
-                    try {
-                        userName = jwtService.extractUsername(token);
-                    }catch (Exception e){
-                        //log.error("e: ", e);
-                       e.printStackTrace();
-                    }
-                    break;
-                }
-            }
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            token = authHeader.substring(7);
+            userName = jwtService.extractUsername(token);
         }
+
+//        Cookie[] cookies = request.getCookies();
+//        if (cookies!=null){
+//            for (Cookie cookie : cookies) {
+//                if ("jwt".equals(cookie.getName())){
+//                    token = cookie.getValue();
+//
+//                    try {
+//                        userName = jwtService.extractUsername(token);
+//                    }catch (Exception e){
+//                        //log.error("e: ", e);
+//                       e.printStackTrace();
+//                    }
+//                    break;
+//                }
+//            }
+//        }
 
 
 
